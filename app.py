@@ -70,8 +70,8 @@ if st.sidebar.button('Predict'):
     st.subheader('Prediction Results')
     
     if exit_prediction == 1:
-        st.markdown("<span style='color: red; font-weight: bold;'>The new hire is likely to exit the company.</span>", unsafe_allow_html=True)
+        st.markdown("<span style='color: red; font-weight: bold;'>This employee/new hire is likely to exit the company.</span>", unsafe_allow_html=True)
     else:
-        st.markdown("<span style='color: green; font-weight: bold;'>The new hire is unlikely to exit the company.</span>", unsafe_allow_html=True)
+        st.markdown("<span style='color: green; font-weight: bold;'>This employee/new hire is unlikely to exit the company.</span>", unsafe_allow_html=True)
     
     st.write(f"The probability of exit is: **{exit_probability * 100:.2f}%**")
