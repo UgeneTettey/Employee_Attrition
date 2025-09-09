@@ -16,15 +16,15 @@ The dataset comes from two CSV files:
 
 
 ## Workflow
-1. **Data Cleaning & Encoding** — handled in `model_training/cleaner.py`  
-2. **Exploratory Analysis** — done in Jupyter notebooks  
+1. **Exploratory Analysis** — done in Jupyter notebooks  
+2. **Data Cleaning & Encoding** — handled using `model_training/cleaner.py` 
 3. **Model Training** — modular pipeline in `model_training/trainer.py` with support for multiple algorithms (Logistic Regression, Random Forest, XGBoost, etc.)  
 4. **Deployment** — `app.py` to serve models via Streamlit  
 
 ## Documentation
 Detailed docs for each part of the workflow are available in the [`docs/`](docs/) folder:
 - [overview.md](docs/overview.md) — project goals and summary  
-- [data.md](docs/data.md) — dataset structure and cleaning  
+- [EDA-cleaning.md](docs/EDA-cleaning.md) — dataset structure, EDA and cleaning  
 - [training.md](docs/training.md) — model training pipeline  
 - [deployment.md](docs/deployment.md) — deployment guide  
 
