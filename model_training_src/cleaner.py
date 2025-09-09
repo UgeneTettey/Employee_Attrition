@@ -16,10 +16,18 @@ class DataCleaner:
     - Detailed cleaning reports
 
     
-    Usage:
+    Usage examples:
     >>> cleaner = DataCleaner(df)
     >>> cleaned_df = cleaner.clean()
     >>> report = cleaner.report()
+    >>> cleaner = DataCleaner(
+        df,
+        drop_duplicates=True,
+        drop_columns=['ID', 'Timestamp'],
+        handle_missing='auto',
+        text_cleanup=True,
+        numeric_outliers=False,
+        verbose=True)
     """
     
     def __init__(
