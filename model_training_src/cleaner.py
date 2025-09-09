@@ -33,7 +33,8 @@ class DataCleaner:
         iqr_multiplier: float = 1.5,
         category_threshold: int = 10,
         verbose: bool = True,
-        missing_categorical_value: str = 'MISSING'
+        missing_categorical_value: str = 'MISSING',
+        drop_columns: list = None # columns to drop
     ):
         """
         Initialize data cleaner with configuration options
@@ -86,7 +87,8 @@ class DataCleaner:
             'iqr_multiplier': iqr_multiplier,
             'category_threshold': category_threshold,
             'verbose': verbose,
-            'missing_categorical_value': missing_categorical_value
+            'missing_categorical_value': missing_categorical_value,
+            'drop_columns': drop_columns  #new config option
         }
         
         # Initialize reporting
@@ -98,6 +100,7 @@ class DataCleaner:
             'type_conversions': {},
             'outliers': {},
             'rows_removed_outliers': 0,
+            'columns_dropped':[], # new report field
             'final_shape': None
         }
     
@@ -106,6 +109,7 @@ class DataCleaner:
         if self.config['verbose']:
             print(message)
     
+    # method for handling duplicates
     def _handle_duplicates(self):
         """Remove duplicate rows based on configuration"""
         if self.config['drop_duplicates']:
@@ -115,6 +119,7 @@ class DataCleaner:
             self.cleaning_report['duplicates_removed'] = removed
             self.log(f"Removed {removed} duplicate rows")
     
+    # method for cleaning text data
     def _clean_text_data(self):
         """Perform text cleaning operations"""
         if not self.config['text_cleanup']:
@@ -151,6 +156,7 @@ class DataCleaner:
             except Exception as e:
                 self.log(f"Text cleaning failed for {col}: {str(e)}")
     
+    # method for handling missing values
     def _handle_missing_values(self):
         """Address missing values based on selected strategy"""
         if self.config['handle_missing'] == 'skip' or self.cleaning_report['missing_values_initial'] == 0:
@@ -196,6 +202,7 @@ class DataCleaner:
             self.log("\nMissing values after handling:")
             self.log(self.df.isna().sum().to_string())
     
+    # methods for optimizing data types
     def _optimize_data_types(self):
         """Convert to optimal data types and downcast where possible"""
         type_conversions = {}
@@ -227,6 +234,7 @@ class DataCleaner:
         
         self.cleaning_report['type_conversions'] = type_conversions
     
+    # method for handling outliers
     def _handle_outliers(self):
         """Detect and manage numeric outliers"""
         if not self.config['numeric_outliers']:
@@ -269,6 +277,15 @@ class DataCleaner:
         self.cleaning_report['outliers'] = outlier_report
         self.cleaning_report['rows_removed_outliers'] = initial_row_count - len(self.df)
     
+    # method for dropping specified columns
+    def _drop_columns(self):
+        """Drop specified columns from the DataFrame"""
+        if self.config['drop_columns']:
+            existing_cols = [col for col in self.config['drop_columns'] if col in self.df.columns]
+            self.df = self.df.drop(columns=existing_cols)
+            self.cleaning_report['columns_dropped'] = existing_cols
+            self.log(f"Dropped columns: {existing_cols}")
+
     def _generate_final_report(self):
         """Complete reporting metrics and output summary"""
         self.cleaning_report['missing_values_final'] = self.df.isna().sum().sum()
@@ -299,6 +316,7 @@ class DataCleaner:
         self.log("Starting data cleaning process...")
         
         # Execute cleaning steps in sequence
+        self._drop_columns()
         self._handle_duplicates()
         self._clean_text_data()
         self._handle_missing_values()
