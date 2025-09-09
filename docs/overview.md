@@ -64,15 +64,13 @@ Both datasets include demographic, job-related, and performance features. See [d
 
 ## Status
 
-- Data loading, inspection, and cleaning are complete.
+- Data loading, inspection are complete. and cleaning are complete.
 - EDA and initial visualizations are implemented.
-- Modular cleaning pipeline is operational.
-- Ready for feature engineering and model training.
 
 ---
 
 ## Next Steps
 
-- Expand feature engineering and selection.
+- Data cleaning and Preprocessing.
 - Train and evaluate predictive models.
 - Deploy models for HR analytics

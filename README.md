@@ -24,7 +24,8 @@ The dataset comes from two CSV files:
 ## Documentation
 Detailed docs for each part of the workflow are available in the [`docs/`](docs/) folder:
 - [overview.md](docs/overview.md) — project goals and summary  
-- [data.md](docs/data.md) — dataset structure, EDA and cleaning  
+- [data.md](docs/data.md) — dataset structure.
+- [EDA-cleaning.md](docs/EDA-cleaning.md) - EDA & data cleaning  
 - [training.md](docs/training.md) — model training pipeline  
 - [deployment.md](docs/deployment.md) — deployment guide  
 
